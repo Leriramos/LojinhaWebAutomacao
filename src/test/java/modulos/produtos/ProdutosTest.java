@@ -50,7 +50,7 @@ public class ProdutosTest {
 
 
 
-        Assertions.assertEquals("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00", mensagemApresentada);
+        Assertions.assertEquals("O valor do produto deve está entre R$ 0,01 e R$ 7.000,00", mensagemApresentada);
 
     }
 
@@ -75,9 +75,48 @@ public class ProdutosTest {
 
     }
 
+    @Test
+    @DisplayName("Posso adicionar produtos que estejam no limite de 0,01")
+    public void testPermitidoAdicionarProdutosComValorDeUmCentavo() {
+        String mensagemApresentada = new LoginPage(navegador)
+                .informarOUsuario("admin")
+                .informarASenha("admin")
+                .submeterFormularioDeLogin()
+                .acessarFormularioAdicaoNovoProduto()
+                .informarNomeProduto("Notebook Positivo")
+                .informarValorProduto("001")
+                .informarCoresProduto("Preto, Branco")
+                .submeterFormularioDeAdicaoComSucesso()
+                .capturarMensagemApresentada();
+
+        Assertions.assertEquals("Produto adicionado com sucesso", mensagemApresentada);
+
+
+
+    }
+
+    @Test
+    @DisplayName("Posso adicionar produtos que estejam no limite de 7000.00")
+    public void testPermitidoAdicionarProdutosComValorDeSeteMilReais() {
+        String mensagemApresentada = new LoginPage(navegador)
+                .informarOUsuario("admin")
+                .informarASenha("admin")
+                .submeterFormularioDeLogin()
+                .acessarFormularioAdicaoNovoProduto()
+                .informarNomeProduto("Notebook Lenovo")
+                .informarValorProduto("700000")
+                .informarCoresProduto("Preto, Branco, Cinza")
+                .submeterFormularioDeAdicaoComSucesso()
+                .capturarMensagemApresentada();
+
+        Assertions.assertEquals("Produto adicionado com sucesso", mensagemApresentada);
+
+
+
+    }
+
     @AfterEach
     public void afterEach() {
-        //vou fechar o navegador
         navegador.quit();
     }
 }

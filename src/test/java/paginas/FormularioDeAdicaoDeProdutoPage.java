@@ -37,5 +37,11 @@ public class FormularioDeAdicaoDeProdutoPage {
 
     }
 
+    public FormularioDeEdicaoDoProdutoPage submeterFormularioDeAdicaoComSucesso () {
+        navegador.findElement(By.cssSelector("button[type='submit']")).click();
+
+        return new FormularioDeEdicaoDoProdutoPage(navegador);
+    }
+
 
 }
